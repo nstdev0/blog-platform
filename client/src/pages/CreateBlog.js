@@ -1,6 +1,7 @@
 // src/pages/CreateBlog.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/CreateBlog.css';  // Importar el archivo CSS
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
@@ -20,9 +21,9 @@ const CreateBlog = () => {
   };
 
   return (
-    <div>
-      <h1>Crear Nuevo Blog</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="create-blog-container">
+      <h1 className='create-edit-header'>Crear Nuevo Blog</h1>
+      <form className='create-edit-form' onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}

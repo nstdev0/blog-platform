@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BlogList from '../components/BlogList';
+import '../styles/Home.css';  // Importar el archivo CSS
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -28,8 +29,8 @@ const Home = () => {
   if (error) return <p>Error loading blogs: {error.message}</p>;
 
   return (
-    <div>
-      <h1>My Blog Platform 2024</h1>
+    <div className='home-container'>
+      <h1 className='home-header h1'>My Blog Platform 2024</h1>
       <BlogList blogs={blogs} />
     </div>
   );

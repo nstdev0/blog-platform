@@ -1,6 +1,7 @@
 // src/components/BlogList.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/BlogList.css';  // Importar el archivo CSS
 
 const BlogList = ({ blogs }) => {
   const handleDelete = (id) => {
@@ -16,16 +17,18 @@ const BlogList = ({ blogs }) => {
   };
 
   return (
-    <div>
+    <div className="blog-list">
       {blogs.map(blog => (
-        <div key={blog._id}>
+        <div key={blog._id} className="blog-item">
           <h2>
             <Link to={`/blog/${blog._id}`}>{blog.title}</Link>
           </h2>
-          <button onClick={() => handleDelete(blog._id)}>Eliminar</button>
+          <div className="button-group">
           <Link to={`/edit/${blog._id}`}>
-            <button>Editar</button>
-          </Link>
+              <button className="edit-button">Editar</button>
+            </Link>
+            <button className="delete-button" onClick={() => handleDelete(blog._id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

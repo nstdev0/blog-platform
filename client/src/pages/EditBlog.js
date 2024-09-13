@@ -1,6 +1,7 @@
 // src/pages/EditBlog.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../styles/EditBlog.css';  // Importar el archivo CSS
 
 const EditBlog = () => {
   const { id } = useParams();
@@ -31,9 +32,9 @@ const EditBlog = () => {
   };
 
   return (
-    <div>
-      <h1>Editar Blog</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='create-edit-container'>
+      <h1 className='create-edit-header'>Editar Blog</h1>
+      <form className='create-edit-form' onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}
