@@ -1,25 +1,27 @@
 // src/pages/CreateBlog.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs`, {
+    fetch('/api/blogs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, content }),
-    });
-    const data = await response.json();
-    console.log('Blog creado:', data);
-    // Redirigir o mostrar mensaje de éxito
+    })
+      .then(res => res.json())
+      .then(() => navigate('/'))
+      .catch(error => console.log(error));
   };
 
   return (
     <div>
-      <h2>Crear Blog</h2>
+      <h1>Crear Nuevo Blog</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -1,38 +1,38 @@
 // src/pages/EditBlog.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const EditBlog = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}`);
-      const data = await response.json();
-      setTitle(data.title);
-      setContent(data.content);
-    };
-    fetchBlog();
+    fetch(`/api/blogs/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setTitle(data.title);
+        setContent(data.content);
+      })
+      .catch(error => console.log(error));
   }, [id]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/blogs/${id}`, {
+    fetch(`/api/blogs/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, content }),
-    });
-    const data = await response.json();
-    console.log('Blog actualizado:', data);
-    navigate('/');
+    })
+      .then(res => res.json())
+      .then(() => navigate(`/blog/${id}`))
+      .catch(error => console.log(error));
   };
 
   return (
     <div>
-      <h2>Editar Blog</h2>
+      <h1>Editar Blog</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
